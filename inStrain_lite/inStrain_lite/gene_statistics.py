@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 from tqdm import tqdm
 from Bio import SeqIO
-from inStrain import SNPprofile
+from inStrain_lite import SNPprofile
 from collections import defaultdict
 
 
@@ -159,20 +159,18 @@ def main(args):
     g = calculate_gene_pi(gene_index, pi_table, sample, min_cov = 5, min_gene_size = 100)
     g.to_csv(sample + '.genes.tsv', index=False, sep='\t')
     print("Determining function of SNPs (N vs S vs O)")
-    snv_table = s.get_nonredundant_snv_table()
-    snv_table = snv_table[snv_table.cryptic == False]
-    snv_table = snv_table.drop(columns="cryptic")
+    snv_table = s.snp_table
     snv_table, snp_types = characterize_snp(gene_index, gene_starts, seqs, gene_direction, snv_table)
     snv_table.to_csv(sample + ".aa-SNVs.tsv",sep='\t', quoting=csv.QUOTE_NONE)
     
     print("Updating linkage table...")
-    linkage_table = s.get_nonredundant_linkage_table()
+    linkage_table = s.linkage_table
     for index,snp_pair in linkage_table.iterrows():
         if snp_pair['scaffold'] + str(snp_pair['position_A']) in snp_types:
             linkage_table.at[index,'mutation_type_A'] = snp_types[snp_pair['scaffold'] + str(snp_pair['position_A'])]
         if snp_pair['scaffold'] + str(snp_pair['position_B']) in snp_types:
             linkage_table.at[index,'mutation_type_B'] = snp_types[snp_pair['scaffold'] + str(snp_pair['position_B'])]
-    snv_table.to_csv(sample + ".aa-linkage.tsv",sep='\t', quoting=csv.QUOTE_NONE)
+    linkage_table.to_csv(sample + ".aa-linkage.tsv",sep='\t', quoting=csv.QUOTE_NONE)
 
 if __name__ == '__main__':
 

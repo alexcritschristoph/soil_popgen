@@ -1,0 +1,17 @@
+README.md
+setup.py
+bin/inStrain_lite
+inStrain_lite/__init__.py
+inStrain_lite/_version.py
+inStrain_lite/combine_samples.py
+inStrain_lite/filter_reads.py
+inStrain_lite/fst.py
+inStrain_lite/gene_statistics.py
+inStrain_lite/linkage.py
+inStrain_lite/utilities.py
+inStrain_lite.egg-info/PKG-INFO
+inStrain_lite.egg-info/SOURCES.txt
+inStrain_lite.egg-info/dependency_links.txt
+inStrain_lite.egg-info/not-zip-safe
+inStrain_lite.egg-info/requires.txt
+inStrain_lite.egg-info/top_level.txt

@@ -1,6 +1,7 @@
 ### FUNCTIONS USED BY THE PROGRAM
 
 from collections import defaultdict
+import sys
 import numpy as np
 import logging
 
@@ -42,31 +43,6 @@ def get_base_counts(pileupcolumn, filtered_reads):
                 pass
     return counts
 
-def call_snv_site(counts, min_cov=5, min_freq=0.05, model=None):
-    '''
-    Determines whether a site has a variant based on its nucleotide count frequencies.
-    Return:
-        Base if SNP
-        -1 if not SNP
-        None if unCounted
-    '''
-    if model: #alexcc - so you can call this function from outside of the file
-        model_to_use = model
-    else:
-        model_to_use = null_model
-
-    total = sum(counts)
-    if total >= min_cov:
-        i = 0
-        for c in counts:
-            if c >= model_to_use[total] and float(c) / total >= min_freq:
-                i += 1
-        if i > 1:
-            return C2P[np.argmax(counts)]
-        else:
-            return None
-    else:
-        return None
 
 def setup_logger(loc):
     ''' set up logger such that DEBUG goes only to file, rest go to file and console '''

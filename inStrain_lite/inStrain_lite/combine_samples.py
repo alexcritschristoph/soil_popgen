@@ -1,7 +1,8 @@
 import argparse
-from inStrain import SNPprofile
-from inStrain import call_snv_site
-from inStrain import generate_snp_model
+from inStrain_lite import SNPprofile
+from inStrain_lite import call_snv_site
+from inStrain_lite import generate_snp_model
+from inStrain_lite.utilities import major_minor_allele
 import sys
 import os
 import pandas as pd
@@ -12,18 +13,18 @@ import numpy as np
 def main(args):
 
     ## Step 0: get null model for SNP calling
-    null_loc = os.path.dirname(__file__) + './inStrain/helper_files/combined_null1000000.txt'
+    null_loc = os.path.dirname(__file__) + '/helper_files/combined_null1000000.txt'
     null_model = generate_snp_model(null_loc)
     P2C = {'A':0, 'C':1, 'T':2, 'G':3}
     C2P = {0:'A', 1:'C', 2:'T', 3:'G'}
 
 
     ## Step 1: build new counts table from all objects
-    s_final = SNVprofile()
-    s_final.filename = args.output
+    s_final = SNPprofile()
+    s_final.output = args.output
     i = 0 
     for fn in args.input:
-        s = SNVprofile()
+        s = SNPprofile()
         print("loading " + fn)
         s.load(fn)
 
@@ -73,8 +74,8 @@ def main(args):
 
     # Step 3: Save new object and new SNP table to disk.
     SNPTable = pd.DataFrame(snp_table)
-    SNPTable.to_csv(args.output + '.SNVs.tsv', index=False, sep='\t')
-    s_final.store()
+    s_final.SNPTable = SNPTable
+    s_final.save()
 
 
 

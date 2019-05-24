@@ -29,18 +29,49 @@ from inStrain_lite.linkage import calculate_ld
 P2C = {'A':0, 'C':1, 'T':2, 'G':3}
 C2P = {0:'A', 1:'C', 2:'T', 3:'G'}
 
+def call_snv_site(counts, min_cov=5, min_freq=0.05, model=None):
+    '''
+    Determines whether a site has a variant based on its nucleotide count frequencies.
+    Return:
+        Base if SNP
+        -1 if not SNP
+        None if unCounted
+    '''
+    if model: #alexcc - so you can call this function from outside of the file
+        model_to_use = model
+    else:
+        model_to_use = null_model
+
+    total = sum(counts)
+    if total >= min_cov:
+        i = 0
+        for c in counts:
+            if c >= model_to_use[total] and float(c) / total >= min_freq:
+                i += 1
+        if i > 1:
+            return C2P[np.argmax(counts)]
+        else:
+            return None
+    else:
+        return None
+
+
 ###############################################################
 ######## START MAIN SNP PROFILE CLASS OBJECT ##################
 ###############################################################
 
 class SNPprofile():
-    def __init__(self, **kwargs):
+
+    def __init__(self):
+
         # parameters
-        output = None
-        fasta_db = None
-        coverage_table = None
-        snp_table = None
-        linkage_table = None
+        self.output = None
+        self.fasta_db = None
+        self.scaffold_list = []
+        self.counts_table = None
+        self.coverage_table = None
+        self.snp_table = None
+        self.linkage_table = None
 
         # snp calling model 
         null_loc = os.path.dirname(__file__) + '/helper_files/combined_null1000000.txt'
@@ -48,9 +79,12 @@ class SNPprofile():
         null_model = generate_snp_model(null_loc)
 
     def save(self):
-        self.coverage_table.to_csv(self.output + '.scaffold_info.tsv', index=False, sep='\t')
-        self.snp_table.to_csv(self.output + '.SNVs.tsv', index=False, sep='\t')
-        self.linkage_table.to_csv(self.output + '.linkage.tsv', index=False, sep='\t')
+        if self.coverage_table is not None:
+            self.coverage_table.to_csv(self.output + '.scaffold_info.tsv', index=False, sep='\t')
+        if self.snp_table is not None:
+            self.snp_table.to_csv(self.output + '.SNVs.tsv', index=False, sep='\t')
+        if self.linkage_table is not None:
+            self.linkage_table.to_csv(self.output + '.linkage.tsv', index=False, sep='\t')
         f = open(self.output + ".data", 'wb')
         pickle.dump(self.__dict__, f, 2)
         f.close()
@@ -60,6 +94,7 @@ class SNPprofile():
         f = open(name + ".data", 'rb')
         tmp_dict = pickle.load(f)
         f.close()
+        self.__dict__.update(tmp_dict)
 
     def load_fasta(self, args):
         '''
@@ -93,6 +128,7 @@ class SNPprofile():
 
             # create counts table
             counts_table.append(Sprof[0])
+            self.scaffold_list.append(Sprof[3])
             counts_array = np.append(counts_array, Sprof[0], axis=0)
             coverage_breadth_table['scaffold'].append(Sprof[3])
             coverage_breadth_table['coverage'].append(np.mean(np.sum(Sprof[0], axis=1)))
@@ -110,7 +146,6 @@ class SNPprofile():
         coverage_breadth_table = pd.DataFrame(coverage_breadth_table)
         total_coverage = np.mean(np.sum(counts_array, axis=1))
         total_breadth = (np.sum(counts_array, axis=1) > 0).sum() / float(counts_array.shape[0])
-        print(min_breadth_cov)
         total_min_cov_breadth = (np.sum(counts_array, axis=1) >= min_breadth_cov[1]).sum() / float(counts_array.shape[0])
 
         logging.info("Mean coverage\t" + str(total_coverage))
@@ -194,12 +229,13 @@ class Controller():
         strains = SNPprofile()
 
         args = parse_arguments(sys_args)
-        setup_logger(args.output + '.log')
-        args.min_breadth_cov = [int(i) for i in args.min_breadth_cov.split(",")[:2]]
         if not args.output:
-            strains.output = args.fasta.split("/")[-1].split(".")[0]
+            strains.output = args.fasta.split("/")[-1].split(".")[0] + ":" + args.bam.split("/")[-1].split(".")[0]
         else:
             strains.output = args.output
+
+        setup_logger(strains.output + '.log')
+        args.min_breadth_cov = [float(i) for i in args.min_breadth_cov.split(",")[:2]]
         
         strains.load_fasta(args)
 
@@ -236,7 +272,7 @@ def parse_arguments(args):
     parser.add_argument("--max_insert", action="store", default=1500, type=float, \
         help='Maximum insert size between two reads - default is 1500 bp (<=)')
     parser.add_argument("--min_breadth_cov", action="store", default="0,0", type=str,\
-        help='OPTIONAL: comma separated min breadth and a specific coverage required to generate output. E.g., 50,5 will require 50 percent of the genome to be at least 5x coverage to generate tables')
+        help='OPTIONAL: comma separated min breadth and a specific coverage required to generate output. E.g., 0.50,5 will require 50 percent of the genome to be at least 5x coverage to generate tables')
 
     # Parse
     if (len(args) == 0 or args[0] == '-h' or args[0] == '--help'):

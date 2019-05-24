@@ -1,8 +1,8 @@
 import numpy as np 
 import pandas as pd 
 from tqdm import tqdm
-from inStrain import call_snv_site
-from inStrain import SNVprofile
+from inStrain_lite import call_snv_site
+from inStrain_lite import SNPprofile
 
 def calc_fst_weir()
 def calc_fst(allele_freq1, allele_freq2):
@@ -49,7 +49,7 @@ def calc_fst(allele_freq1, allele_freq2):
 def main(args):
 
     ## Step 0: get null model for SNP calling
-    null_loc = os.path.dirname(__file__) + './inStrain/helper_files/combined_null1000000.txt'
+    null_loc = os.path.dirname(__file__) + '/helper_files/combined_null1000000.txt'
     null_model = generate_snp_model(null_loc)
     P2C = {'A':0, 'C':1, 'T':2, 'G':3}
     C2P = {0:'A', 1:'C', 2:'T', 3:'G'}

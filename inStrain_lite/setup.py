@@ -3,7 +3,7 @@
 import os
 from setuptools import setup
 
-from inStrain._version import __version__
+from inStrain_lite._version import __version__
 
 setup(name='inStrain_lite',
       version=__version__,

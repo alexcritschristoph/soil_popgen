@@ -1,11 +1,11 @@
 Metadata-Version: 1.2
-Name: inStrain_lite
-Version: 0.3.0
+Name: inStrain-lite
+Version: 0.4.0
 Summary: Calculation of strain-level metrics
 Home-page: https://github.com/alexcritschristoph/soil_popgen
 Author: Matt Olm and Alex Crits-Christoph
 Author-email: crits-christoph@berkeley.edu
-License: GPL3
+License: MIT
 Description: UNKNOWN
 Platform: UNKNOWN
 Requires-Python: >=3.4.0
