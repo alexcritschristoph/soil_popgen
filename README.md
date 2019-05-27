@@ -29,8 +29,15 @@ Reads in this dataset are on average ~200 bp. (HiSeq 2500 sequencing that aimed 
 
 ### Meadow-wide population profiling.
 
-A BAM file for each species containing all filtered reads assigned to that species from the meadow was created using `combine_filter_bams.py` in `./meadow_wide/`.  These BAMs were then used to analyze SNP linkage across the meadow. 
+A BAM file for each species containing all filtered reads assigned to that species from the meadow was created using `combine_filter_bams.py` in `./meadow_wide/`.  The commands run are in `./meadow_wide/run_combine.sh`. These BAMs were then used to analyze total nucleotide diversity and SNP linkage across the meadow. These BAMs were then profiled with the `inStrain_lite` script with the following parameters:
+```
+inStrain_lite -p 48 -s 30 -c 0.96 ../meadow_wide/14_0903_02_20cm_Proteobacteria_56_68_14_filtered_sort.bam  ../representative_genomes
+/14_0903_02_20cm_Proteobacteria_56_68_14.fasta```
+
+All inStrain_lite commands run are in the `./meadow_wide/run_inStrain.sh`. 
 
 ### Per-sample population profiling
 
-
+Each individual sample was profiled separately for the purpose of calculating nucleotide diversity per sample / plot, and Fst between plots. The inStrain commands run are in `./strains_data/run_instrain.sh` and take the form: 
+```inStrain_lite -p 48 -s 30 -c 0.96 --min_breadth_cov 0.5,5 ../bams/all_14_0903_02_20cm_sorted.bam ../representative_genomes/14_0903_02_20cm_Proteobacteria_56_68_14.fasta```
+586 out of 1140 total (19 genomes*60 samples) genome+sample pairs passed the minimum requirement of at least 5x filtered read coverage across at least 50% of the representative genome to be included in these downstream analyses. 
