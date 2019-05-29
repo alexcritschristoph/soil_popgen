@@ -1,4 +1,4 @@
-# soil_popgen
+# Soil bacterial populations are shaped by recombination and gene-specific selection across a grassland meadow
 Reproducible scripts and notebooks for 2019 paper on population genetics in metagenomes
 
 ## Structure
