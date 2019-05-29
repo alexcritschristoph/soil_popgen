@@ -46,3 +46,11 @@ inStrain_lite -p 48 -s 30 -c 0.96 --min_breadth_cov 0.5,5 ../bams/all_14_0903_02
 586 out of 1140 total (19 genomes*60 samples) genome+sample pairs passed the minimum requirement of at least 5x filtered read coverage across at least 50% of the representative genome to be included in these downstream analyses. 
 
 Data from samples were then aggregated into various groupings (by replicate, plot, block, and all) using `./merged_samples/make_merge_commands.py` which generates commands for all of the possible combinations to run `./inStrain_lite/combine_samples.py`. Merged samples were used for Figure 3 and for FST data (merged by block).
+
+### Gene statistics
+
+Genes were called on all representative genomes with `prodigal` - output is in `./representative_genomes/fna/*`. The script `gene_statistics.py` was run on each of the per-sample population profiles, each aggregated profile, and the meadow-wide profiles (commands found in scripts called `run_gene_commands.sh` in each respective `./data/` directory).
+
+### Organism abundances
+
+Organism relative abundances were taken by counting the total number of reads that mapped to each genome in each sample (`./data_tables/bin_reads.txt`) and dividing by the total number of reads per sample (`bin_total_reads.tsv`). 
