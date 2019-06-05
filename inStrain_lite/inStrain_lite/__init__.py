@@ -257,7 +257,7 @@ def parse_arguments(args):
         help='Output prefix')
     parser.add_argument("-p", "--threads", action="store", default=6, type=int, \
         help='Threads to use for multiprocessing')
-    parser.add_argument("-s", "--min_ld", action="store", default=20, \
+    parser.add_argument("-s", "--min_ld", action="store", default=30, type=int, \
         help='Minimum number of reads connecting two segregating sites to calculate LD between them. (>=)')
     parser.add_argument("-f", "--min_freq", action="store", default=0.05, \
         help='Minimum SNP frequency to confirm a SNP (both this AND the 10^-6 FDR SNP count cutoff must be true).')

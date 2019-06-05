@@ -16,7 +16,7 @@ def characterize_snp(gene_index, gene_starts, seqs, gene_direction, snv_table):
     '''
     
     print("Characterizing SNPs")
-    freq = snv_table
+    freq = snv_table.reset_index()
     snp_types = {}
 
     for index,snp in freq.iterrows():
@@ -164,12 +164,12 @@ def main(args):
     snv_table.to_csv(sample + ".aa-SNVs.tsv",sep='\t', quoting=csv.QUOTE_NONE)
     
     print("Updating linkage table...")
-    linkage_table = s.linkage_table
+    linkage_table = s.linkage_table.reset_index()
     for index,snp_pair in linkage_table.iterrows():
-        if snp_pair['scaffold'] + str(snp_pair['position_A']) in snp_types:
-            linkage_table.at[index,'mutation_type_A'] = snp_types[snp_pair['scaffold'] + str(snp_pair['position_A'])]
-        if snp_pair['scaffold'] + str(snp_pair['position_B']) in snp_types:
-            linkage_table.at[index,'mutation_type_B'] = snp_types[snp_pair['scaffold'] + str(snp_pair['position_B'])]
+        if snp_pair['scaffold'] + ":" + str(snp_pair['position_A']) in snp_types:
+            linkage_table.at[index,'mutation_type_A'] = snp_types[snp_pair['scaffold'] + ":" + str(snp_pair['position_A'])]
+        if snp_pair['scaffold'] + ":" + str(snp_pair['position_B']) in snp_types:
+            linkage_table.at[index,'mutation_type_B'] = snp_types[snp_pair['scaffold'] + ":" + str(snp_pair['position_B'])]
     linkage_table.to_csv(sample + ".aa-linkage.tsv",sep='\t', quoting=csv.QUOTE_NONE)
 
 if __name__ == '__main__':
@@ -186,8 +186,6 @@ if __name__ == '__main__':
 
     # Required positional arguments
     parser.add_argument('input', help="an inStrain object prefix. (don't include `.`, only prefixes - must be in the local directory).")
-    parser.add_argument("-o", "--output", action="store", required=True, \
-        help='Output prefix ')
     parser.add_argument("-g", "--gene_file", action="store", required=True, \
         help='Path to prodigal .fna genes file.')
 

@@ -114,4 +114,4 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
     setup_logger(args.log)
-    filter_paired_reads(args.bam, args.fasta, float(args.mismatch_threshold), int(args.min_mapq), int(args.min_insert_length), int(args.max_insert_length), write_bam=args.generate_bam)
+    filter_paired_reads(args.bam, args.fasta, float(args.mismatch_threshold), int(args.min_mapq), int(args.min_insert_length), int(args.max_insert), write_bam=args.generate_bam)
