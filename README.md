@@ -49,8 +49,12 @@ Data from samples were then aggregated into various groupings (by replicate, plo
 
 ### Gene statistics
 
-Genes were called on all representative genomes with `prodigal` - output is in `./representative_genomes/fna/*`. The script `gene_statistics.py` was run on each of the per-sample population profiles, each aggregated profile, and the meadow-wide profiles (commands found in scripts called `run_gene_commands.sh` in each respective `./data/` directory).
+Genes were called on all representative genomes with `prodigal` - output is in `./representative_genomes/fna/*`. The script `gene_statistics.py` was run on each of the per-sample population profiles, each aggregated profile, and the meadow-wide profiles (commands found in scripts called `run_gene_commands.sh` in each respective `./data/` directory). For each gene, multi-allelic nucleotide diversity was reported, and point mutations were labeled as N or S using a naive point mutation test for a change in translation using the default genetic code.
 
 ### Organism abundances
 
 Organism relative abundances were taken by counting the total number of reads that mapped to each genome in each sample (`./data_tables/bin_reads.txt`) and dividing by the total number of reads per sample (`bin_total_reads.tsv`). 
+
+### Fst and Tajima's D
+
+Fst between and Tajima's D within the three meadow blocks were calculated using the script `fst.py` for every gene. This script requires the package scikit-allel which it uses to calculate these statistics. Statistics were calculated on SNPs segregating within or between either population (sps were jointly called across both populations). Fst was calculated using the Hudson method as recommended by Bhatia et al. (2013).
