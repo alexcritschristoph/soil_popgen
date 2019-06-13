@@ -44,7 +44,7 @@ def create_gene_index(gene_fasta):
 def main(args):
 
     ## Step 0: get null model for SNP calling
-    null_loc = os.path.dirname(__file__) + './helper_files/combined_null1000000.txt'
+    null_loc = os.path.dirname(__file__) + '/helper_files/combined_null1000000.txt'
     null_model = generate_snp_model(null_loc)
     P2C = {'A':0, 'C':1, 'T':2, 'G':3}
     C2P = {0:'A', 1:'C', 2:'T', 3:'G'}
@@ -108,7 +108,7 @@ def main(args):
     SNPTable = pd.DataFrame(snp_table)
 
     FstTable = defaultdict(list)
-    for gene in create_gene_index(args.gene_file):
+    for gene in tqdm(create_gene_index(args.gene_file), desc="calculating fst"):
         snps = SNPTable[(SNPTable.scaffold == gene['scaf']) & (SNPTable.position >= gene['start']) & (SNPTable.position <= gene['end'])]
         snp_list = []
         for index, row in snps.iterrows():
@@ -126,23 +126,19 @@ def main(args):
             allel1 = allel.AlleleCountsArray(allele_counts_1)
             allel2 = allel.AlleleCountsArray(allele_counts_2)
             fst_h = allel.moving_hudson_fst(allel1, allel2, size=len(snp_list))[0] #allel.moving_hudson_fst(a1,a2, size=3)
-            Dt_1 = allel.moving_tajima_d(allel1, size=len(snp_list))[0]
-            Dt_2 = allel.moving_tajima_d(allel2, size=len(snp_list))[0]
             nd_1 = np.sum(allel.mean_pairwise_difference(allel1)) / (1 + gene['end'] - gene['start'])
             nd_2 = np.sum(allel.mean_pairwise_difference(allel2)) / (1 + gene['end'] - gene['start'])
-            delta_Dt = allel.moving_delta_tajima_d(allel1, allel2, size=len(snp_list))[0]
 
             FstTable['gene'].append(gene['name'])
             FstTable['snp_num'].append(len(snp_list))
             FstTable['fst'].append(fst_h)
-            FstTable['Dt_1'].append(Dt_1)
-            FstTable['Dt_2'].append(Dt_2)
-            FstTable['delta_Dt'].append(delta_Dt)
             FstTable['pi_1'].append(nd_1)
             FstTable['pi_2'].append(nd_2)
+            FstTable['cov_1'].append(np.mean(np.sum(allele_counts_1, axis=1)))
+            FstTable['cov_2'].append(np.mean(np.sum(allele_counts_2, axis=1)))
 
     FstTable = pd.DataFrame(FstTable)
-
+    print(np.mean(FstTable['fst']))
     FstTable.to_csv(args.output + '.Fst.tsv', index=False, sep='\t')
 
 

@@ -1,0 +1,28 @@
+#                                                                           --- full sequence ---- --- best 1 domain ---- --- domain number estimation ----
+# target name                    accession  query name           accession    E-value  score  bias   E-value  score  bias   exp reg clu  ov env dom rep inc description of target
+#            ------------------- ---------- -------------------- ---------- --------- ------ ----- --------- ------ -----   --- --- --- --- --- --- --- --- ---------------------
+14_0929_02_20cm_scaffold_146_24  -          Competence           PF03772.16   2.8e-57  196.1  27.6   2.8e-57  196.1  27.6   2.0   2   0   0   2   2   1   1 # 33149 # 35632 # -1 # ID=101_24;partial=00;start_type=ATG;rbs_motif=GGA/GAG/AGG;rbs_spacer=5-10bp;gc_cont=0.577
+14_0927_12_40cm_scaffold_728_39  -          Competence           PF03772.16   1.2e-56  194.0  33.3   1.2e-56  194.0  33.3   1.9   2   0   0   2   2   1   1 # 37918 # 40221 # -1 # ID=147_39;partial=00;start_type=ATG;rbs_motif=None;rbs_spacer=None;gc_cont=0.553
+14_0929_02_40cm_scaffold_515_6   -          Competence           PF03772.16   5.8e-56  191.8  34.4   5.8e-56  191.8  34.4   2.2   2   0   0   2   2   1   1 # 5813 # 8059 # -1 # ID=109_6;partial=00;start_type=ATG;rbs_motif=None;rbs_spacer=None;gc_cont=0.780
+14_0929_12_30cm_scaffold_1818_11 -          Competence           PF03772.16   8.2e-56  191.3  30.9   8.2e-56  191.3  30.9   1.7   2   0   0   2   2   1   1 # 8560 # 10860 # -1 # ID=117_11;partial=00;start_type=ATG;rbs_motif=None;rbs_spacer=None;gc_cont=0.550
+14_1009_05_40cm_scaffold_16322_4 -          Competence           PF03772.16     1e-55  191.0  29.4     1e-55  191.0  29.4   1.7   2   0   0   2   2   1   1 # 3125 # 5425 # 1 # ID=44_4;partial=00;start_type=ATG;rbs_motif=None;rbs_spacer=None;gc_cont=0.555
+14_1009_02_30cm_scaffold_3507_8  -          Competence           PF03772.16   1.1e-55  190.8  29.9   1.1e-55  190.8  29.9   1.8   2   0   0   2   2   1   1 # 4728 # 7028 # -1 # ID=176_8;partial=00;start_type=ATG;rbs_motif=None;rbs_spacer=None;gc_cont=0.562
+14_0929_09_20cm_scaffold_147_7   -          Competence           PF03772.16   3.8e-54  185.8  27.2   3.8e-54  185.8  27.2   2.1   2   0   0   2   2   1   1 # 4861 # 7149 # -1 # ID=12_7;partial=00;start_type=ATG;rbs_motif=None;rbs_spacer=None;gc_cont=0.554
+14_0927_05_20cm_scaffold_41_19   -          Competence           PF03772.16   1.9e-52  180.2  27.0   1.9e-52  180.2  27.0   2.1   2   0   0   2   2   1   1 # 17630 # 19714 # -1 # ID=34_19;partial=00;start_type=GTG;rbs_motif=None;rbs_spacer=None;gc_cont=0.712
+14_1009_02_30cm_scaffold_18_5    -          Competence           PF03772.16   3.7e-47  162.9  32.6   6.6e-47  162.1  32.6   1.4   1   0   0   1   1   1   1 # 4435 # 6633 # -1 # ID=6_5;partial=00;start_type=ATG;rbs_motif=GGAG/GAGG;rbs_spacer=5-10bp;gc_cont=0.724
+14_1009_05_40cm_scaffold_2959_6  -          Competence           PF03772.16   4.1e-46  159.5  35.4   7.4e-46  158.6  35.4   1.4   1   0   0   1   1   1   1 # 4502 # 6709 # 1 # ID=238_6;partial=00;start_type=TTG;rbs_motif=GGAG/GAGG;rbs_spacer=5-10bp;gc_cont=0.721
+14_1009_02_40cm_scaffold_105_64  -          Competence           PF03772.16   1.2e-44  154.6  35.4   2.2e-44  153.8  35.4   1.4   1   0   0   1   1   1   1 # 64651 # 66885 # -1 # ID=53_64;partial=00;start_type=GTG;rbs_motif=GGAG/GAGG;rbs_spacer=5-10bp;gc_cont=0.762
+14_0903_09_40cm_scaffold_5898_6  -          Competence           PF03772.16   2.5e-44  153.6  27.1   2.5e-44  153.6  27.1   2.1   2   0   0   2   2   1   1 # 3353 # 5566 # -1 # ID=134_6;partial=00;start_type=GTG;rbs_motif=None;rbs_spacer=None;gc_cont=0.704
+14_0927_05_20cm_scaffold_142_86  -          Competence           PF03772.16   5.1e-42  146.1  37.0   5.1e-42  146.1  37.0   1.6   2   0   0   2   2   1   1 # 90143 # 92359 # 1 # ID=70_86;partial=00;start_type=ATG;rbs_motif=AGxAGG/AGGxGG;rbs_spacer=5-10bp;gc_cont=0.726
+14_0929_09_30cm_scaffold_1058_42 -          Competence           PF03772.16   5.2e-41  142.8  34.3   8.5e-38  132.2  31.9   3.2   2   1   1   3   3   1   1 # 46216 # 48483 # -1 # ID=17_42;partial=00;start_type=GTG;rbs_motif=GGAGG;rbs_spacer=3-4bp;gc_cont=0.679
+14_1009_02_40cm_scaffold_23772_4 -          Competence           PF03772.16   3.9e-11   44.8  19.4   3.9e-11   44.8  19.4   1.5   2   0   0   2   2   1   1 # 2990 # 4204 # -1 # ID=30_4;partial=01;start_type=Edge;rbs_motif=None;rbs_spacer=None;gc_cont=0.723
+#
+# Program:         hmmsearch
+# Version:         3.1b2 (February 2015)
+# Pipeline mode:   SEARCH
+# Query file:      PF03772.hmm
+# Target file:     proteome.faa
+# Option settings: hmmsearch --tblout competence.txt --cut_ga PF03772.hmm proteome.faa 
+# Current dir:     /data6/Angelo/alexcc/AngeloStrainsPaper/annotations/competence
+# Date:            Mon May  6 16:29:48 2019
+# [ok]

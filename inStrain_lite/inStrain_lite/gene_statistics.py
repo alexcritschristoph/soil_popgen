@@ -168,8 +168,12 @@ def main(args):
     for index,snp_pair in linkage_table.iterrows():
         if snp_pair['scaffold'] + ":" + str(snp_pair['position_A']) in snp_types:
             linkage_table.at[index,'mutation_type_A'] = snp_types[snp_pair['scaffold'] + ":" + str(snp_pair['position_A'])]
+            if snp_pair['scaffold'] + ":" + str(snp_pair['position_A']) in gene_index:
+                 linkage_table.at[index,'gene_A'] = gene_index[snp_pair['scaffold'] + ":" + str(snp_pair['position_A'])]
         if snp_pair['scaffold'] + ":" + str(snp_pair['position_B']) in snp_types:
             linkage_table.at[index,'mutation_type_B'] = snp_types[snp_pair['scaffold'] + ":" + str(snp_pair['position_B'])]
+            if snp_pair['scaffold'] + ":" + str(snp_pair['position_B']) in gene_index:
+                 linkage_table.at[index,'gene_B'] = gene_index[snp_pair['scaffold'] + ":" + str(snp_pair['position_B'])]
     linkage_table.to_csv(sample + ".aa-linkage.tsv",sep='\t', quoting=csv.QUOTE_NONE)
 
 if __name__ == '__main__':
