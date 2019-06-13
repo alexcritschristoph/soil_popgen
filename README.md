@@ -10,6 +10,8 @@ Meant to be reusable for other projects, eventually will be published as its own
 
 *Notebooks* - notebooks used to generate each figure in this paper.
 
+*Representative_genomes* - representative genome sequences for each species used in this study, along with predicted genes.
+
 ## Reproducibility
 
 ### Genome dereplication
