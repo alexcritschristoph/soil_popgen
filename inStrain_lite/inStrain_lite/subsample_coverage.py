@@ -122,15 +122,13 @@ def calculate_pi(counts, min_cov = 5, subsample_coverage = 0):
                 counts = counts_sampled
                 s = np.sum(counts)
                 prob = (float(counts[0]) / s) * (float(counts[0]) / s) + (float(counts[1]) / s) * (float(counts[1]) / s) + (float(counts[2]) / s) * (float(counts[2]) / s) + (float(counts[3]) / s) * (float(counts[3]) / s)
-                print(prob)
                 return 1.0-prob
 
 def calculate_diversity(s, min_cov = 5, subsample_coverage = 0 ):
     pi_table = defaultdict(list)
     ''' Returns a per-site table of nucleotide diversity calculations for an SNPprofile object.'''
     c = 0
-    for scaf in s.counts_table[:2]:
-        print(scaf.shape)
+    for scaf in s.counts_table:
         i = 0
         for counts in scaf[:1000]:
             pi_table['position'].append(s.scaffold_list[c] + ":" + str(i))
